@@ -1,0 +1,28 @@
+services:
+  streamops:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: streamops
+    restart: unless-stopped
+    env_file:
+      - ./config/.env
+    expose:
+      - "3033"
+    networks:
+      - streamops-net
+
+  streamops-cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: streamops-cloudflared
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token ${STREAMOPS_TUNNEL_TOKEN}
+    depends_on:
+      - streamops
+    networks:
+      - streamops-net
+
+networks:
+  streamops-net:
+    name: streamops-net
+    driver: bridge

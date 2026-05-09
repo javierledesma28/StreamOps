@@ -1,0 +1,10 @@
+{
+  "name": "streamops",
+  "version": "0.1.0",
+  "description": "StreamOps backend for Mate and Cloud Twitch stream",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {}
+}
